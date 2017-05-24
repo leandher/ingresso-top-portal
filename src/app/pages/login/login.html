@@ -1,7 +1,6 @@
 <div class="auth-main">
   <div class="auth-block">
-    <h1 translate>{{'login.title'}}</h1>
-    <a routerLink="/register" class="auth-link" translate>{{'login.signup_link'}}</a>
+    <h1>Ingresso Top</h1>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
       <div class="form-group row" [ngClass]="{'has-error': (!email.valid && email.touched), 'has-success': (email.valid && email.touched)}">
@@ -20,13 +19,14 @@
       </div>
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
-          <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth" translate>{{'login.sign_in'}}</button>
-          <a routerLink="/login" class="forgot-pass" translate>{{'login.forgot_password'}}</a>
+          <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth">Entrar</button>
+          <a routerLink="/register" class="forgot-pass" style="margin-right: 35%;">Registrar-se</a>
+          <a routerLink="/login" class="forgot-pass">Esqueceu a senha?</a>
         </div>
       </div>
     </form>
 
-    <div class="auth-sep"><span><span translate>{{'login.sign_from_app_text'}}</span></span></div>
+<!--    <div class="auth-sep"><span><span translate>{{'login.sign_from_app_text'}}</span></span></div>
 
     <div class="al-share-auth">
       <ul class="al-share clearfix">
@@ -34,6 +34,6 @@
         <li><i class="socicon socicon-twitter" title="{{'login.share_on_twitter' | translate}}"></i></li>
         <li><i class="socicon socicon-google" title="{{'login.share_on_google_plus' | translate}}"></i></li>
       </ul>
-    </div>
+    </div>-->
   </div>
 </div>
