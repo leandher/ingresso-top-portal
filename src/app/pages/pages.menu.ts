@@ -277,7 +277,7 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: ['/login'],
+            path: ['Cliente/login'],
             data: {
               menu: {
                 title: 'general.menu.login'
@@ -285,7 +285,7 @@ export const PAGES_MENU = [
             }
           },
           {
-            path: ['/register'],
+            path: ['Cliente/register'],
             data: {
               menu: {
                 title: 'general.menu.register'

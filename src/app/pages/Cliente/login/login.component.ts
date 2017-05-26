@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Cliente } from '../cliente';
 
 @Component({
   selector: 'login',
@@ -12,6 +13,7 @@ export class Login {
   public email: AbstractControl;
   public password: AbstractControl;
   public submitted: boolean = false;
+  public cliente: Cliente;
 
   constructor(fb: FormBuilder) {
     this.form = fb.group({
@@ -26,7 +28,9 @@ export class Login {
   public onSubmit(values: Object): void {
     this.submitted = true;
     if (this.form.valid) {
-      console.log('topper');
+      this.cliente.email = this.email.value;
+      this.cliente.senha = this.password.value;
+      console.log(this.cliente);
     }
   }
 }
