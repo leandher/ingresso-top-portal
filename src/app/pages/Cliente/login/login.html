@@ -19,12 +19,15 @@
       </div>
       <div class="form-group row">
         <div class="offset-sm-2 col-sm-10">
-          <button [disabled]="!form.valid" type="submit" class="btn btn-default btn-auth">Entrar</button>
+          <button [disabled]="!form.valid" ng-click="login.onSubmit()" class="btn btn-default btn-auth">Entrar</button>
           <a routerLink="/register" class="forgot-pass" style="margin-right: 35%;">Registrar-se</a>
           <a routerLink="/login" class="forgot-pass">Esqueceu a senha?</a>
         </div>
       </div>
     </form>
+  </div>
+</div>
+
 
 <!--    <div class="auth-sep"><span><span translate>{{'login.sign_from_app_text'}}</span></span></div>
 
@@ -34,6 +37,19 @@
         <li><i class="socicon socicon-twitter" title="{{'login.share_on_twitter' | translate}}"></i></li>
         <li><i class="socicon socicon-google" title="{{'login.share_on_google_plus' | translate}}"></i></li>
       </ul>
-    </div>-->
+    </div>
+  </div>
+</div>-->
+
+<div id="loginModal" class="modal-content fade"  role="dialog" >
+  <div class="modal-header">
+    <button class="close" aria-label="Close" (click)="login.closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>{{ mensagem }}</p>
+  </div>
+  <div class="modal-footer">
   </div>
 </div>

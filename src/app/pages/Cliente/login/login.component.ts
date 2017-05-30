@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Cliente } from '../cliente';
+import { LoginService } from './login.service';
 
 @Component({
   selector: 'login',
@@ -14,8 +15,11 @@ export class Login {
   public password: AbstractControl;
   public submitted: boolean = false;
   public cliente: Cliente;
+  public mensagem: String;
+  public tipoMensagem: String;
+  
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, private loginService: LoginService) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -25,12 +29,53 @@ export class Login {
     this.password = this.form.controls['password'];
   }
 
-  public onSubmit(values: Object): void {
+  onSubmit(values: Object): void {
     this.submitted = true;
+    this.cliente = new Cliente();
     if (this.form.valid) {
       this.cliente.email = this.email.value;
       this.cliente.senha = this.password.value;
       console.log(this.cliente);
+      this.loginService.login(this.cliente)
+                     .then(
+                       response => this.cliente = response
+                       )
+                       .catch(
+                         err => {
+                           console.log(err.status);
+                           switch (err.status){
+                             case 400:
+                                  this.mensagem = 'Combinação entre login e senha incorretos!';
+                                  this.openModal();
+                                  break;
+                             case 500:
+                                  this.mensagem = 'Erro no servidor';
+                                  this.openModal();
+                                  break;
+                           }
+                           console.log(this.mensagem);
+                         }
+                       );
     }
+  }
+
+  showMessage(message: String, type: String): void{
+      this.mensagem = message;
+      this.tipoMensagem = type;
+
+      setTimeout(() => {
+        	this.mensagem  = "";
+    	}, 3000);
+
+  }
+
+  closeModal(): void {
+    let myDialog:any = <any>document.getElementById("loginModal");
+    myDialog.closeModal();
+  }
+
+  openModal(): void {
+    let myDialog:any = <any>document.getElementById("loginModal");
+    myDialog.showModal();
   }
 }

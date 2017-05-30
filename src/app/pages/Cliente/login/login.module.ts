@@ -4,8 +4,11 @@ import { AppTranslationModule } from '../../../app.translation.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../../theme/nga.module';
 
-import { Login } from './login.component';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { routing } from './login.routing';
+import { Login } from './login.component';
+import { LoginService } from './login.service';
 
 
 @NgModule({
@@ -15,11 +18,16 @@ import { routing } from './login.routing';
     ReactiveFormsModule,
     FormsModule,
     NgaModule,
-    routing
+    routing,
   ],
   declarations: [
-    Login
-  ]
+    Login,
+  ],
+  providers: [
+    LoginService,
+    NgbActiveModal, 
+    NgbModal,
+  ],
 })
 export class LoginModule {
   
