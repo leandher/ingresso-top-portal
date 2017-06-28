@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Cliente } from '../cliente';
 import { LoginService } from './login.service';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'login',
@@ -19,7 +21,7 @@ export class Login {
   public tipoMensagem: String;
   
 
-  constructor(fb: FormBuilder, private loginService: LoginService) {
+  constructor(fb: FormBuilder, private loginService: LoginService, private router: Router) {
     this.form = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(4)])]
@@ -38,7 +40,10 @@ export class Login {
       console.log(this.cliente);
       this.loginService.login(this.cliente)
                      .then(
-                       response => this.cliente = response
+                       response => {
+                         this.cliente = response;
+                         this.router.navigate(['/dashboard']);
+                        }
                        )
                        .catch(
                          err => {
@@ -46,11 +51,11 @@ export class Login {
                            switch (err.status){
                              case 400:
                                   this.mensagem = 'Combinação entre login e senha incorretos!';
-                                  this.openModal();
+                                  alert(this.mensagem);
                                   break;
                              case 500:
                                   this.mensagem = 'Erro no servidor';
-                                  this.openModal();
+                                  alert(this.mensagem);
                                   break;
                            }
                            console.log(this.mensagem);
@@ -69,13 +74,7 @@ export class Login {
 
   }
 
-  closeModal(): void {
-    let myDialog:any = <any>document.getElementById("loginModal");
-    myDialog.closeModal();
-  }
-
-  openModal(): void {
-    let myDialog:any = <any>document.getElementById("loginModal");
-    myDialog.showModal();
+  closeModal() {
+    $('#loginModal').hideModal();    
   }
 }

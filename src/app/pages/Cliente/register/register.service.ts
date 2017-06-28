@@ -4,14 +4,14 @@ import 'rxjs/add/operator/toPromise';
 import { Cliente } from '../cliente';
 
 @Injectable()
-export class LoginService {
+export class RegisterService {
 
-  private loginUrl = 'api/cliente/login';
+  private loginUrl = 'api/cliente/';
   
 
   constructor(private http: Http) { }
 
-  login(cliente: Cliente): Promise<Cliente> {
+  save(cliente: Cliente): Promise<Cliente> {
     return this.http.post(this.loginUrl, cliente)
       .toPromise()
       .then(response => response.json().data as Cliente)
